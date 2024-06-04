@@ -1,0 +1,21 @@
+server :
+  port : 8080
+
+spring:
+  datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/token_test
+      username: root
+      password: 1234
+
+  jpa:
+    hibernate:
+      ddl-auto: create #create update none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+
+
+jwt:
+  secret : f9bf63696be834db3cc418e1e1f1e7d089226c5fa05724d24c352f9f162d7cc1
+
