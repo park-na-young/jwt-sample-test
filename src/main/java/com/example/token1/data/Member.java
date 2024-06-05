@@ -15,55 +15,30 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
-@Builder
-@Getter
-@Setter
-@Data
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Table(name="Member")
+@Builder
+@EqualsAndHashCode(of = "id")
 public class Member implements UserDetails {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Id @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @Column(name = "member_id", updatable = false, unique = true, nullable = false)
+    private Long id;
 
-    @JsonProperty("username")
+    @Column(nullable = false)
     private String username;
 
-    @JsonProperty("password")
+    @Column(nullable = false)
     private String password;
 
-    @JsonProperty("userImgUrl")
-    private String userImgUrl;
+    private String nickname;
 
-    @JsonProperty("email")
-    private String email;
+    private String address; // 도로명 주소
 
-    @JsonProperty("role")
-    private String role;
+    private String phone;
 
-    @JsonProperty("provider")
-    private String provider;
-
-    @JsonProperty("providerId")
-    private String providerId;
-
-    @CreationTimestamp
-    private Timestamp createDate;
-
-    @Builder
-    public Member(String username, String password, String userImgUrl, String email, String role, String provider, String providerId, Timestamp createDate) {
-        this.username = username;
-        this.password = password;
-        this.userImgUrl = userImgUrl;
-        this.email = email;
-        this.role = role;
-        this.provider = provider;
-        this.providerId = providerId;
-        this.createDate = createDate;
-    }
+    private String profileImg;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
@@ -78,21 +53,102 @@ public class Member implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }
+
+//@Builder
+//@Getter
+//@Setter
+//@Data
+//@Entity
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
+//@AllArgsConstructor
+//@Table(name="Member")
+//public class Member implements UserDetails {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private int id;
+//
+//    @JsonProperty("username")
+//    private String username;
+//
+//    @JsonProperty("password")
+//    private String password;
+//
+//    @JsonProperty("userImgUrl")
+//    private String userImgUrl;
+//
+//    @JsonProperty("email")
+//    private String email;
+//
+//    @JsonProperty("role")
+//    private String role;
+//
+//    @JsonProperty("provider")
+//    private String provider;
+//
+//    @JsonProperty("providerId")
+//    private String providerId;
+//
+//    @CreationTimestamp
+//    private Timestamp createDate;
+//
+//    @Builder
+//    public Member(String username, String password, String userImgUrl, String email, String role, String provider, String providerId, Timestamp createDate) {
+//        this.username = username;
+//        this.password = password;
+//        this.userImgUrl = userImgUrl;
+//        this.email = email;
+//        this.role = role;
+//        this.provider = provider;
+//        this.providerId = providerId;
+//        this.createDate = createDate;
+//    }
+//
+//    @ElementCollection(fetch = FetchType.EAGER)
+//    @Builder.Default
+//    private List<String> roles = new ArrayList<>();
+//
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return this.roles.stream()
+//                .map(SimpleGrantedAuthority::new)
+//                .collect(Collectors.toList());
+//    }
+//
+//    @Override
+//    public boolean isAccountNonExpired() {
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean isAccountNonLocked() {
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean isCredentialsNonExpired() {
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean isEnabled() {
+//        return false;
+//    }
+//}

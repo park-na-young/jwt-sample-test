@@ -1,10 +1,15 @@
 package com.example.token1.controller;
 
+import com.example.token1.dto.MemberDto;
 import com.example.token1.dto.SignInDto;
+import com.example.token1.dto.SignUpDto;
 import com.example.token1.jwt.JwtToken;
 import com.example.token1.service.MemberService;
+import com.example.token1.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.Response;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,10 +32,15 @@ public class MemberController {
         log.info("jwtToken accessToken = {}, refreshToken = {}", jwtToken.getAccessToken(), jwtToken.getRefreshToken());
         return jwtToken;
     }
+    @PostMapping("/sign-up")
+    public ResponseEntity<MemberDto> signUp(@RequestBody SignUpDto signUpDto) {
+        MemberDto savedMemberDto = memberService.signUp(signUpDto);
+        return ResponseEntity.ok(savedMemberDto);
+    }
 
     @PostMapping("/test")
     public String test() {
-        return "success";
+        return SecurityUtil.getCurrentUsername();
     }
 
 }

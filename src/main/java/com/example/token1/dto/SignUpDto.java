@@ -26,6 +26,13 @@ public class SignUpDto {
     public Member toEntity(String encodedPassword, List<String> roles) {
 
         return Member.builder()
-                .
+                .username(username)
+                .password(encodedPassword)
+                .nickname(nickname)
+                .address(address)
+                .phone(phone)
+                .profileImg(profileImg)
+                .roles(roles)
+                .build();
     }
 }
